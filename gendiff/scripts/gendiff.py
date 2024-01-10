@@ -21,13 +21,17 @@ def generate_diff(path_first_file, path_second_file):
             if value_second_file is not None:
                 diff[f"+ {key}"] = value_second_file
 
-    formatted_diff = '\n'.join([f'  {key}: {value}' for key, value in diff.items()])
+    formatted_diff = '\n'.join(
+        [f'  {key}: {value}' for key, value in diff.items()]
+    )
 
     return '{\n' + formatted_diff + '\n}'
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Compares two configuration files and shows a difference.")
+    parser = argparse.ArgumentParser(
+        description="Compares two configuration files and shows a difference."
+    )
     parser.add_argument("-f", "--format", help="set format of output")
     parser.add_argument("first_file")
     parser.add_argument("second_file")
