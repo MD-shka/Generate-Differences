@@ -1,7 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/MD-shka/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MD-shka/python-project-50/actions)
 
-### Maintainability, Test Coverage Badges
+### Badges
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/5df15d6743ae9d153d83/maintainability)](https://codeclimate.com/github/MD-shka/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5df15d6743ae9d153d83/test_coverage)](https://codeclimate.com/github/MD-shka/python-project-50/test_coverage)
 
