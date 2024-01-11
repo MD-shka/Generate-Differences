@@ -11,7 +11,8 @@ def generate_diff(path_first_file, path_second_file):
     diff = {}
     first_file = json_load_file(path_first_file)
     second_file = json_load_file(path_second_file)
-    keys = set(first_file.keys()) | set(second_file.keys())
+    keys = set().union(first_file.keys(), second_file.keys())
+    # keys = set(first_file.keys()) | set(second_file.keys())
 
     for key in sorted(keys):
         value_first_file = first_file.get(key)
