@@ -1,14 +1,32 @@
-import os
-from gendiff.scripts.gendiff import generate_diff
+import pytest
+from gendiff.scripts import gendiff
 
 
-def test_generate_diff():
-    """local_path = '/home/project_gendiff/python-project-50'
-    path_first_file = os.path.join(local_path, 'tests/fixtures/file1.json')
-    path_second_file = os.path.join(local_path, 'tests/fixtures/file2.json')"""
-    path_first_file = 'tests/fixtures/file1.json'
-    path_second_file = 'tests/fixtures/file2.json'
-    diff = ("{\n  - follow: False\n    host: hexlet.io\n"
-            "  - proxy: 123.234.53.22\n  - timeout: 50\n"
-            "  + timeout: 20\n  + verbose: True\n}")
-    assert generate_diff(path_first_file, path_second_file) == diff
+@pytest.mark.parametrize("path_first_file, path_second_file, diff_files", [
+    ('tests/fixtures/file1.json',
+     'tests/fixtures/file2.json',
+     'tests/fixtures/diff_file1_file2.md'
+     ),
+])
+def test_generate_diff(path_first_file, path_second_file, diff_files):
+    with open(diff_files, 'r') as file:
+        result = file.read()
+    assert gendiff.generate_diff(path_first_file, path_second_file) == result
+
+
+@pytest.fixture
+def test_args(monkeypatch):
+    monkeypatch.setattr('sys.argv', ['script.py', 'file1.json', 'file2.json'])
+    return ('file1.json', 'file2.json')
+
+
+def test_process_cmd(test_args):
+    result = gendiff.process_cmd()
+    assert result == test_args
+
+
+def test_main(test_args, monkeypatch):
+    monkeypatch.setattr('gendiff.scripts.gendiff.process_cmd', lambda: test_args)
+    monkeypatch.setattr('gendiff.scripts.gendiff.generate_diff', lambda *args: '{}')
+    result = gendiff.main()
+    assert result == '{}'

@@ -25,10 +25,10 @@ def generate_diff(path_first_file, path_second_file):
         [f'  {key}: {value}' for key, value in diff.items()]
     )
 
-    return '{\n' + formatted_diff + '\n}'
+    return '{\n' + formatted_diff.lower() + '\n}'
 
 
-def main():
+def process_cmd():
     parser = argparse.ArgumentParser(
         description="Compares two configuration files and shows a difference."
     )
@@ -37,7 +37,12 @@ def main():
     parser.add_argument("second_file")
     args = parser.parse_args()
 
-    return generate_diff(args.first_file, args.second_file)
+    return args.first_file, args.second_file
+
+
+def main():
+    path_first_file, path_second_file = process_cmd()
+    return generate_diff(path_first_file, path_second_file)
 
 
 if __name__ == '__main__':
