@@ -28,3 +28,4 @@ build: check
 	poetry build
 
 .PHONY: install test lint selfcheck check build
+export PYTHONPATH=./
