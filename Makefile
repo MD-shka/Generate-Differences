@@ -1,6 +1,9 @@
 install:
 	poetry install
 
+build:
+	poetry build
+
 publish:
 	poetry publish --dry-run
 
@@ -19,12 +22,12 @@ test:
 test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
 
+test-coverage-percent:
+	pytest --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
+
 selfcheck:
 	poetry check
 
 check: selfcheck test lint
-
-build: check
-	poetry build
 
 .PHONY: install test lint selfcheck check build
