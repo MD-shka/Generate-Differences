@@ -7,6 +7,14 @@ from gendiff.scripts import gendiff
      'tests/fixtures/file2.json',
      'tests/fixtures/diff_file1_file2.md'
      ),
+    ('tests/fixtures/file1.yaml',
+     'tests/fixtures/file2.yml',
+     'tests/fixtures/diff_file1_file2.md'
+     ),
+    ('tests/fixtures/file1.yaml',
+     'tests/fixtures/file2.json',
+     'tests/fixtures/diff_file1_file2.md'
+     )
 ])
 def test_generate_diff(path_first_file, path_second_file, diff_files):
     with open(diff_files, 'r') as file:

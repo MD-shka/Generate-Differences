@@ -1,4 +1,4 @@
-install:
+lintinstall:
 	poetry install
 
 build:
