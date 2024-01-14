@@ -1,4 +1,4 @@
-lintinstall:
+install:
 	poetry install
 
 build:
@@ -24,6 +24,9 @@ test-coverage:
 
 test-coverage-percent:
 	pytest --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
+
+rec:
+	asciinema rec
 
 selfcheck:
 	poetry check
