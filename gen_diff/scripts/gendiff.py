@@ -1,25 +1,51 @@
 #!/usr/bin/env python3
 import argparse
-from gen_diff import parser
-from gen_diff import stylish
+from gen_diff import parser, stylish
 
 
-def generate_diff(first_file, second_file):
-    keys = set(first_file.keys()) | set(second_file.keys())
-    diff = []
+def generate_diff(dict1, dict2):
+    diff = {}
 
-    for key in sorted(keys):
-        value_first = first_file.get(key)
-        value_second = second_file.get(key)
+    for key in sorted(set(dict1.keys()) | set(dict2.keys())):
+        value1 = dict1.get(key)
+        value2 = dict2.get(key)
 
-        if value_first == value_second:
-            diff.append((key, value_first, 'unchanged'))
-        else:
-            if value_first is not None:
-                diff.append((key, value_first, 'deleted'))
-            if value_second is not None:
-                diff.append((key, value_second, 'added'))
-
+        if value1 == value2:
+            if isinstance(value1, dict):
+                nested_diff = generate_diff(value1, value2)
+                if nested_diff:
+                    diff[key] = {
+                        'status': 'unchanged',
+                        'value': nested_diff
+                    }
+            else:
+                diff[key] = {
+                    'status': 'unchanged',
+                    'value': value1
+                }
+        elif key in dict1 and key not in dict2:
+            diff[key] = {
+                'status': 'deleted',
+                'value': value1
+            }
+        elif key not in dict1 and key in dict2:
+            diff[key] = {
+                'status': 'added',
+                'value': value2
+            }
+        elif value1 != value2:
+            if isinstance(value1, dict) and isinstance(value2, dict):
+                nested_diff = generate_diff(value1, value2)
+                diff[key] = {
+                    'status': 'unchanged',
+                    'value': nested_diff
+                }
+            else:
+                diff[key] = {
+                    'status': 'changed',
+                    'old_value': value1,
+                    'new_value': value2
+                }
     return diff
 
 
@@ -40,8 +66,7 @@ def main():
     first_file = parser.parsing_file(path_first_file)
     second_file = parser.parsing_file(path_second_file)
     diff = generate_diff(first_file, second_file)
-    stylish_diff = '\n'.join(stylish.stylish(diff))
-    return "{\n" + stylish_diff.lower() + "\n}"
+    return stylish.stylish(diff)
 
 
 if __name__ == '__main__':
