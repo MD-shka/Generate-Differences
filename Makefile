@@ -17,10 +17,10 @@ lint:
 	poetry run flake8 gen_diff
 
 test:
-	poetry run pytest -vv
+	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=gendiff --cov-report xml
+	poetry run pytest --cov=gen_diff --cov-report xml
 
 test-coverage-percent:
 	pytest --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
