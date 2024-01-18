@@ -5,7 +5,7 @@ description = ""
 authors = ["Mikhail Egorov <pe.egorov@gmail.com>"]
 readme = "README.md"
 packages = [
-  { include = "gendiff" },
+  { include = "gen_diff" },
 ]
 
 [tool.poetry.dependencies]
@@ -14,7 +14,7 @@ argparse = "^1.4.0"
 pyyaml = "^6.0.1"
 
 [tool.poetry.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
+gendiff = "gen_diff.scripts.gendiff:main"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"
