@@ -23,7 +23,7 @@ test-coverage:
 	poetry run pytest --cov=gen_diff --cov-report xml
 
 test-coverage-percent:
-	pytest --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
+	pytest -vv --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
 
 rec:
 	asciinema rec

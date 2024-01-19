@@ -35,8 +35,8 @@ from gen_diff import parser
      'tests/fixtures/diff_identical_nested_dictionaries.md',
      'stylish'
      ),
-    ('tests/fixtures/identical_nested_dictionaries_file1.json',
-     'tests/fixtures/identical_nested_dictionaries_file2.yaml',
+    ('tests/fixtures/nested_file1.json',
+     'tests/fixtures/nested_file2.yml',
      'tests/fixtures/result_gendiff_format_plain.md',
      'plain'
      )

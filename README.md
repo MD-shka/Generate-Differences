@@ -7,7 +7,10 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5df15d6743ae9d153d83/test_coverage)](https://codeclimate.com/github/MD-shka/python-project-50/test_coverage)
 
 #### Comparison of JSON files
-https://asciinema.org/a/XrPZTd9sQGDlRHyUljFZGr2UJ
+### https://asciinema.org/a/XrPZTd9sQGDlRHyUljFZGr2UJ
 
-#### Comparison of nested files
-https://asciinema.org/a/ki2yr23YdWQGrhRhKQ1D4boIL
+## Comparison of nested files
+### https://asciinema.org/a/ki2yr23YdWQGrhRhKQ1D4boIL
+
+## Comparison of nested files with plain format
+### https://asciinema.org/a/cY4eYEQv61Cv9BR1vU7am88DA

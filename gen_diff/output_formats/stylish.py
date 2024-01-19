@@ -37,7 +37,7 @@ def get_str_diff(diff, depth):
 def stylish(diff, depth=1):
     result = []
     for key, changes in diff.items():
-        if isinstance(changes, dict) and 'status' in changes:
+        if is_dict(changes) and 'status' in changes:
             if changes['status'] in SPECIAL_SYMBOLS:
                 result.append(
                     get_recursive_or_value(
