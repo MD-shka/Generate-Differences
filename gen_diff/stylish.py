@@ -4,6 +4,7 @@ SPECIAL_SYMBOLS = {"unchanged": "  ", "added": "+ ", "deleted": "- "}
 def is_dict(value):
     return isinstance(value, dict)
 
+
 def get_indent(depth):
     return ' ' * (depth * 4 - 2)
 
@@ -16,7 +17,12 @@ def format_value(value):
     return value
 
 
-def get_recursive_or_value(value, shift, key=SPECIAL_SYMBOLS["unchanged"], depth=1):
+def get_recursive_or_value(
+        value,
+        shift,
+        key=SPECIAL_SYMBOLS["unchanged"],
+        depth=1
+):
     pattern = f"{get_indent(depth)}{shift}{key}: "
     return (pattern + f"""{stylish(value, depth + 1)
             if is_dict(value)
