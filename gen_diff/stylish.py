@@ -4,6 +4,9 @@ SPECIAL_SYMBOLS = {"unchanged": "  ", "added": "+ ", "deleted": "- "}
 def is_dict(value):
     return isinstance(value, dict)
 
+def get_indent(depth):
+    return ' ' * (depth * 4 - 2)
+
 
 def format_value(value):
     if isinstance(value, bool):
@@ -13,15 +16,19 @@ def format_value(value):
     return value
 
 
-def get_recursive_or_value(value, shift, key, indent, depth):
-    pattern = f"{indent}{shift}{key}: "
+def get_recursive_or_value(value, shift, key=SPECIAL_SYMBOLS["unchanged"], depth=1):
+    pattern = f"{get_indent(depth)}{shift}{key}: "
     return (pattern + f"""{stylish(value, depth + 1)
             if is_dict(value)
             else format_value(value)}""")
 
 
+def get_str_diff(diff, depth):
+    str_diff = "\n".join(diff)
+    return "{\n" + str_diff + "\n" + get_indent(depth)[:-2] + "}"
+
+
 def stylish(diff, depth=1):
-    indent = ' ' * (depth * 4 - 2)
     result = []
     for key, changes in diff.items():
         if isinstance(changes, dict) and 'status' in changes:
@@ -31,7 +38,6 @@ def stylish(diff, depth=1):
                         changes['value'],
                         SPECIAL_SYMBOLS[changes['status']],
                         key,
-                        indent,
                         depth
                     )
                 )
@@ -41,7 +47,6 @@ def stylish(diff, depth=1):
                         changes['old_value'],
                         SPECIAL_SYMBOLS['deleted'],
                         key,
-                        indent,
                         depth
                     )
                 )
@@ -51,7 +56,6 @@ def stylish(diff, depth=1):
                         changes['new_value'],
                         SPECIAL_SYMBOLS['added'],
                         key,
-                        indent,
                         depth
                     )
                 )
@@ -61,10 +65,7 @@ def stylish(diff, depth=1):
                     changes,
                     SPECIAL_SYMBOLS['unchanged'],
                     key,
-                    indent,
                     depth
                 )
             )
-    str_result = "\n".join(result)
-    str_result = "{\n" + str_result + "\n" + indent[:-2] + "}"
-    return str_result
+    return get_str_diff(result, depth)
