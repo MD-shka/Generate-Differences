@@ -4,38 +4,49 @@ import gen_diff.scripts.gendiff as gendiff
 from gen_diff import parser
 
 
-@pytest.mark.parametrize("path_first_file, path_second_file, diff_files", [
+@pytest.mark.parametrize("path_first_file, path_second_file, diff_files, format_name", [
     ('tests/fixtures/file1.json',
      'tests/fixtures/file2.json',
-     'tests/fixtures/diff_file1_file2.md'
+     'tests/fixtures/diff_file1_file2.md',
+     'stylish'
      ),
     ('tests/fixtures/file1.yaml',
      'tests/fixtures/file2.yml',
-     'tests/fixtures/diff_file1_file2.md'
+     'tests/fixtures/diff_file1_file2.md',
+     'stylish'
      ),
     ('tests/fixtures/file1.yaml',
      'tests/fixtures/file2.json',
-     'tests/fixtures/diff_file1_file2.md'
+     'tests/fixtures/diff_file1_file2.md',
+     'stylish'
      ),
     ('tests/fixtures/nested_file1.json',
      'tests/fixtures/nested_file2.json',
-     'tests/fixtures/diff_nested_file1_nested_file2.md'
+     'tests/fixtures/diff_nested_file1_nested_file2.md',
+     'stylish'
      ),
     ('tests/fixtures/nested_file1.yaml',
      'tests/fixtures/nested_file2.yml',
-     'tests/fixtures/diff_nested_file1_nested_file2.md'
+     'tests/fixtures/diff_nested_file1_nested_file2.md',
+     'stylish'
      ),
     ('tests/fixtures/identical_nested_dictionaries_file1.json',
      'tests/fixtures/identical_nested_dictionaries_file2.yaml',
-     'tests/fixtures/diff_identical_nested_dictionaries.md'
+     'tests/fixtures/diff_identical_nested_dictionaries.md',
+     'stylish'
+     ),
+    ('tests/fixtures/identical_nested_dictionaries_file1.json',
+     'tests/fixtures/identical_nested_dictionaries_file2.yaml',
+     'tests/fixtures/result_gendiff_format_plain.md',
+     'plain'
      )
 ])
-def test_generate_diff(path_first_file, path_second_file, diff_files):
+def test_generate_diff(path_first_file, path_second_file, diff_files, format_name):
     with open(diff_files, 'r') as file:
         result = file.read()
     first_file = parser.parsing_file(path_first_file)
     second_file = parser.parsing_file(path_second_file)
-    diff = gendiff.generate_diff(first_file, second_file)
+    diff = gendiff.generate_diff(first_file, second_file, format_name)
 
     assert diff == result
 
@@ -43,7 +54,7 @@ def test_generate_diff(path_first_file, path_second_file, diff_files):
 def test_process_cmd(monkeypatch):
     monkeypatch.setattr('sys.argv', ['script.py', 'file1.json', 'file2.json'])
     result = gendiff.process_cmd()
-    assert result == ('file1.json', 'file2.json')
+    assert result == ('file1.json', 'file2.json', 'stylish')
 
 
 def test_main(monkeypatch):
