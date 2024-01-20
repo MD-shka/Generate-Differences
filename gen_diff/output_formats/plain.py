@@ -1,5 +1,4 @@
-def is_dict(value):
-    return isinstance(value, dict)
+from gen_diff.build import is_dict
 
 
 def format_value(value):
@@ -9,24 +8,6 @@ def format_value(value):
         return 'null'
     elif is_dict(value):
         return "[complex value]"
-    return f"'{value}'"
-
-
-def get_str_diff(diff):
-    return "\n".join(diff)
-
-
-def is_dict(value):
-    return isinstance(value, dict)
-
-
-def format_value(value):
-    if isinstance(value, bool):
-        return str(value).lower()
-    elif value is None:
-        return 'null'
-    elif is_dict(value):
-        return f"[complex value]"
     return f"'{value}'"
 
 
