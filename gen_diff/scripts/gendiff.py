@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 import argparse
+
+
 from gen_diff import parser, build
-from gen_diff.output_formats import stylish, plain
+from gen_diff.output_formats import stylish, plain, format_json
 
 
 def generate_diff(first_file, second_file, format_name):
-    formats = {"stylish": stylish.stylish, "plain": plain.plain}
+    formats = {
+        "stylish": stylish.stylish,
+        "plain": plain.plain,
+        "json": format_json.get_format_json
+    }
     diff = build.build_diff(first_file, second_file)
     result = formats[format_name](diff)
     return result
@@ -18,7 +24,7 @@ def process_cmd():
     pars.add_argument(
         "-f", "--format",
         help="set format of output",
-        choices=["stylish", "plain"],
+        choices=["stylish", "plain", "json"],
         default="stylish"
     )
     pars.add_argument("first_file")

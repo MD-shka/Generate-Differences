@@ -14,3 +14,6 @@
 
 #### Comparison of nested files with plain format
 ### https://asciinema.org/a/cY4eYEQv61Cv9BR1vU7am88DA
+
+#### Comparison of nested files with JSON format
+### https://asciinema.org/a/AXf1XlOKTWHssKsEyxdnJ9bUH

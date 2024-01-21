@@ -1,5 +1,5 @@
-import pytest
 import json
+import pytest
 import gen_diff.scripts.gendiff as gendiff
 from gen_diff import parser
 
@@ -39,6 +39,11 @@ from gen_diff import parser
      'tests/fixtures/nested_file2.yml',
      'tests/fixtures/result_gendiff_format_plain.md',
      'plain'
+     ),
+    ('tests/fixtures/nested_file1.json',
+     'tests/fixtures/nested_file2.yml',
+     'tests/fixtures/result_gendiff_format_json.json',
+     'json'
      )
 ])
 def test_generate_diff(path_first_file, path_second_file, diff_files, format_name):
@@ -47,6 +52,9 @@ def test_generate_diff(path_first_file, path_second_file, diff_files, format_nam
     first_file = parser.parsing_file(path_first_file)
     second_file = parser.parsing_file(path_second_file)
     diff = gendiff.generate_diff(first_file, second_file, format_name)
+
+    with open('tests/fixtures/write_result.md', 'w') as out_file:
+        out_file.write(diff)
 
     assert diff == result
 

@@ -11,28 +11,28 @@ def build_diff(data1, data2):
 
         if is_dict(value1) and is_dict(value2):
             diff[key] = {
-                'status': 'unchanged',
-                'value': build_diff(value1, value2)
+                "status": "unchanged",
+                "value": build_diff(value1, value2)
             }
         elif value1 == value2:
             diff[key] = {
-                'status': 'unchanged',
-                'value': value1
+                "status": "unchanged",
+                "value": value1
             }
         elif key not in data2:
             diff[key] = {
-                'status': 'deleted',
-                'value': value1
+                "status": "deleted",
+                "value": value1
             }
         elif key not in data1:
             diff[key] = {
-                'status': 'added',
-                'value': value2
+                "status": "added",
+                "value": value2
             }
         else:
             diff[key] = {
-                'status': 'changed',
-                'old_value': value1,
-                'new_value': value2
+                "status": "changed",
+                "old_value": value1,
+                "new_value": value2
             }
     return diff
