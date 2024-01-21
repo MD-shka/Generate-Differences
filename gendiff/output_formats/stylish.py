@@ -1,6 +1,3 @@
-from build import is_dict
-
-
 SPECIAL_SYMBOLS = {"unchanged": "  ", "added": "+ ", "deleted": "- "}
 
 
@@ -24,7 +21,7 @@ def get_recursive_or_value(
 ):
     pattern = f"{get_indent(depth)}{shift}{key}: "
     return (pattern + f"""{stylish(value, depth + 1)
-            if is_dict(value)
+            if isinstance(value, dict)
             else format_value(value)}""")
 
 
@@ -36,7 +33,7 @@ def get_str_stylish_diff(diff, depth):
 def stylish(diff, depth=1):
     result = []
     for key, changes in diff.items():
-        if is_dict(changes) and 'status' in changes:
+        if isinstance(changes, dict) and 'status' in changes:
             if changes['status'] in SPECIAL_SYMBOLS:
                 result.append(
                     get_recursive_or_value(

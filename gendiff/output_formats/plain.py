@@ -1,12 +1,9 @@
-from gendiff.build import is_dict
-
-
 def format_plain_value(value):
     if isinstance(value, bool):
         return str(value).lower()
     elif value is None:
         return 'null'
-    elif is_dict(value):
+    elif isinstance(value, dict):
         return "[complex value]"
     return f"'{value}'"
 
@@ -48,6 +45,6 @@ def plain(diff, path_key=None):
         )
         if change:
             result.append(change)
-        elif is_dict(changes.get('value')):
+        elif isinstance(changes.get('value'), dict):
             result.append(plain(changes['value'], current_path))
     return get_str_diff(result)

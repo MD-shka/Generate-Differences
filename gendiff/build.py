@@ -1,7 +1,3 @@
-def is_dict(value):
-    return isinstance(value, dict)
-
-
 def build_diff(data1, data2):
     diff = {}
 
@@ -9,7 +5,7 @@ def build_diff(data1, data2):
         value1 = data1.get(key)
         value2 = data2.get(key)
 
-        if is_dict(value1) and is_dict(value2):
+        if isinstance(value1, dict) and isinstance(value2, dict):
             diff[key] = {
                 "status": "unchanged",
                 "value": build_diff(value1, value2)
