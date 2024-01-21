@@ -51,9 +51,6 @@ def test_generate_diff(path_first_file, path_second_file, diff_files, format_nam
         result = file.read()
     diff = gen_diff.generate_diff(path_first_file, path_second_file, format_name)
 
-    with open('tests/fixtures/write_result.md', 'w') as out_file:
-        out_file.write(diff)
-
     assert diff == result
 
 
