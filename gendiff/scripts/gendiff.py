@@ -16,7 +16,7 @@ def generate_diff(path_first_file, path_second_file, format_name='stylish'):
     }
     diff = build.build_diff(first_file, second_file)
     result = formats[format_name](diff)
-    print(result)
+    return result
 
 
 def process_cmd():
@@ -38,7 +38,7 @@ def process_cmd():
 
 def main():
     path_first_file, path_second_file, format_name = process_cmd()
-    return generate_diff(path_first_file, path_second_file, format_name)
+    print(generate_diff(path_first_file, path_second_file, format_name))
 
 
 if __name__ == '__main__':

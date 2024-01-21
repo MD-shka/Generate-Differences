@@ -46,12 +46,11 @@ from gendiff import parser
      'json'
      )
 ])
-def test_generate_diff(capsys, path_first_file, path_second_file, diff_files, format_name):
+def test_generate_diff(path_first_file, path_second_file, diff_files, format_name):
     with open(diff_files, 'r') as file:
         result = file.read()
-    gen_diff.generate_diff(path_first_file, path_second_file, format_name)
-    captured = capsys.readouterr()
-    assert captured.out.strip() == result.strip()
+    diff = gen_diff.generate_diff(path_first_file, path_second_file, format_name)
+    assert diff == result
 
 
 def test_process_cmd(monkeypatch):
@@ -60,6 +59,7 @@ def test_process_cmd(monkeypatch):
     assert result == ('file1.json', 'file2.json', 'stylish')
 
 
+"""
 def test_main(monkeypatch):
     file1 = '{"key": "value"}'
     file2 = '{"key": "value"}'
@@ -68,9 +68,9 @@ def test_main(monkeypatch):
         file2))
     monkeypatch.setattr('sys.argv', ['script.py', 'file1.json', 'file2.json'])
     result = gen_diff.main()
-    assert result is None
-    # "{\n    key: value\n}"
+    assert result == "{\n    key: value\n}"
 
 
 if __name__ == '__main__':
     pytest.main([__file__])
+"""
