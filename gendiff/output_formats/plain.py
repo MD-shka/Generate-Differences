@@ -1,4 +1,4 @@
-from gen_diff.build import is_dict
+from gendiff.build import is_dict
 
 
 def format_value(value):

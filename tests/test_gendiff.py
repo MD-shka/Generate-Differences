@@ -1,7 +1,7 @@
 import json
 import pytest
-import gen_diff.scripts.gendiff as gendiff
-from gen_diff import parser
+import gendiff.scripts.gen_diff as gen_diff
+from gendiff import parser
 
 
 @pytest.mark.parametrize("path_first_file, path_second_file, diff_files, format_name", [
@@ -51,7 +51,7 @@ def test_generate_diff(path_first_file, path_second_file, diff_files, format_nam
         result = file.read()
     first_file = parser.parsing_file(path_first_file)
     second_file = parser.parsing_file(path_second_file)
-    diff = gendiff.generate_diff(first_file, second_file, format_name)
+    diff = gen_diff.generate_diff(first_file, second_file, format_name)
 
     with open('tests/fixtures/write_result.md', 'w') as out_file:
         out_file.write(diff)
@@ -61,7 +61,7 @@ def test_generate_diff(path_first_file, path_second_file, diff_files, format_nam
 
 def test_process_cmd(monkeypatch):
     monkeypatch.setattr('sys.argv', ['script.py', 'file1.json', 'file2.json'])
-    result = gendiff.process_cmd()
+    result = gen_diff.process_cmd()
     assert result == ('file1.json', 'file2.json', 'stylish')
 
 
@@ -72,7 +72,7 @@ def test_main(monkeypatch):
     monkeypatch.setattr(parser, "parsing_file", lambda path: json.loads(file1) if path == "file1.json" else json.loads(
         file2))
     monkeypatch.setattr('sys.argv', ['script.py', 'file1.json', 'file2.json'])
-    result = gendiff.main()
+    result = gen_diff.main()
     assert result == "{\n    key: value\n}"
 
 

@@ -2,8 +2,8 @@
 import argparse
 
 
-from gen_diff import parser, build
-from gen_diff.output_formats import stylish, plain, format_json
+from gendiff import parser, build
+from gendiff.output_formats import stylish, plain, format_json
 
 
 def generate_diff(first_file, second_file, format_name):

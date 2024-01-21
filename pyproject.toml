@@ -12,7 +12,7 @@ classifiers = [
   "Topic :: Text Processing"
 ]
 packages = [
-  { include = "gen_diff" },
+  { include = "gendiff" },
 ]
 
 [tool.poetry.dependencies]

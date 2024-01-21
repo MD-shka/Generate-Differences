@@ -14,13 +14,13 @@ package-reinstall:
 	python3 -m pip install --force-reinstall dist/*.whl
 
 lint:
-	poetry run flake8 gen_diff
+	poetry run flake8 gendiff
 
 test:
 	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=gen_diff --cov-report xml
+	poetry run pytest --cov=gendiff --cov-report xml
 
 test-coverage-percent:
 	pytest -vv --cov=/home/project_gendiff/python-project-50 --cov-report term-missing
