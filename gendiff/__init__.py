@@ -1,6 +1,6 @@
 from gendiff.build import build_diff
 from gendiff.parser import parsing_file
-from gendiff.scripts.gen_diff import (
+from gendiff.scripts.gendiff import (
     generate_diff,
     process_cmd,
     main

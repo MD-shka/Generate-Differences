@@ -1,6 +1,6 @@
 import json
 import pytest
-import gendiff.scripts.gen_diff as gen_diff
+import gendiff.scripts.gendiff as gen_diff
 from gendiff import parser
 
 
