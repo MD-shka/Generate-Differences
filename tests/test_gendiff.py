@@ -49,9 +49,7 @@ from gendiff import parser
 def test_generate_diff(path_first_file, path_second_file, diff_files, format_name):
     with open(diff_files, 'r') as file:
         result = file.read()
-    first_file = parser.parsing_file(path_first_file)
-    second_file = parser.parsing_file(path_second_file)
-    diff = gen_diff.generate_diff(first_file, second_file, format_name)
+    diff = gen_diff.generate_diff(path_first_file, path_second_file, format_name)
 
     with open('tests/fixtures/write_result.md', 'w') as out_file:
         out_file.write(diff)
