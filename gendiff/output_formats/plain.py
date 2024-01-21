@@ -5,7 +5,9 @@ def format_plain_value(value):
         return 'null'
     elif isinstance(value, dict):
         return "[complex value]"
-    return f"'{value}'"
+    elif isinstance(value, str):
+        return f"'{value}'"
+    return value
 
 
 def get_str_diff(diff):
