@@ -1,9 +1,16 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "Compares two configuration files and shows a difference."
 authors = ["Mikhail Egorov <pe.egorov@gmail.com>"]
 readme = "README.md"
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Other Audience",
+  "License :: Free For Home Use",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Text Processing"
+]
 packages = [
   { include = "gen_diff" },
 ]
