@@ -1,8 +1,7 @@
+from build import is_dict
+
+
 SPECIAL_SYMBOLS = {"unchanged": "  ", "added": "+ ", "deleted": "- "}
-
-
-def is_dict(value):
-    return isinstance(value, dict)
 
 
 def get_indent(depth):
@@ -29,7 +28,7 @@ def get_recursive_or_value(
             else format_value(value)}""")
 
 
-def get_str_diff(diff, depth):
+def get_str_stylish_diff(diff, depth):
     str_diff = "\n".join(diff)
     return "{\n" + str_diff + "\n" + get_indent(depth)[:-2] + "}"
 
@@ -74,4 +73,4 @@ def stylish(diff, depth=1):
                     depth
                 )
             )
-    return get_str_diff(result, depth)
+    return get_str_stylish_diff(result, depth)

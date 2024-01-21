@@ -1,7 +1,7 @@
 from gendiff.build import is_dict
 
 
-def format_value(value):
+def format_plain_value(value):
     if isinstance(value, bool):
         return str(value).lower()
     elif value is None:
@@ -22,12 +22,13 @@ def get_change(path_str,
                new_value=None
                ):
     if status == 'added':
-        return f"{path_str} was added with value: {format_value(value)}"
+        return f"{path_str} was added with value: {format_plain_value(value)}"
     elif status == 'deleted':
         return f"{path_str} was removed"
     elif status == 'changed':
         return (f"{path_str} was updated. From "
-                f"{format_value(old_value)} to {format_value(new_value)}")
+                f"{format_plain_value(old_value)} to "
+                f"{format_plain_value(new_value)}")
 
 
 def plain(diff, path_key=None):
