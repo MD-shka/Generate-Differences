@@ -6,7 +6,7 @@ from gendiff import parser, build
 from gendiff.output_formats import stylish, plain, format_json
 
 
-def generate_diff(first_file, second_file, format_name):
+def generate_diff(first_file, second_file, format_name='stylish'):
     formats = {
         "stylish": stylish.stylish,
         "plain": plain.plain,
