@@ -1,4 +1,9 @@
-SPECIAL_SYMBOLS = {"unchanged": "  ", "added": "+ ", "deleted": "- "}
+SPECIAL_SYMBOLS = {
+    "nested": "  ",
+    "unchanged": "  ",
+    "added": "+ ",
+    "deleted": "- "
+}
 
 
 def get_indent(depth):
@@ -16,21 +21,21 @@ def format_value(value):
 def get_recursive_or_value(
         value,
         shift,
-        key=SPECIAL_SYMBOLS["unchanged"],
+        key=SPECIAL_SYMBOLS["nested"],
         depth=1
 ):
     pattern = f"{get_indent(depth)}{shift}{key}: "
-    return (pattern + f"""{stylish(value, depth + 1)
+    return (pattern + f"""{format_stylish(value, depth + 1)
             if isinstance(value, dict)
             else format_value(value)}""")
 
 
-def get_str_stylish_diff(diff, depth):
+def stylish_join_lines(diff, depth):
     str_diff = "\n".join(diff)
     return "{\n" + str_diff + "\n" + get_indent(depth)[:-2] + "}"
 
 
-def stylish(diff, depth=1):
+def format_stylish(diff, depth=1):
     result = []
     for key, changes in diff.items():
         if isinstance(changes, dict) and 'status' in changes:
@@ -70,4 +75,4 @@ def stylish(diff, depth=1):
                     depth
                 )
             )
-    return get_str_stylish_diff(result, depth)
+    return stylish_join_lines(result, depth)

@@ -1,13 +1,13 @@
-def build_diff(data1, data2):
+def build_diff(file1_content, file2_content):
     diff = {}
 
-    for key in sorted(set(data1.keys()) | set(data2.keys())):
-        value1 = data1.get(key)
-        value2 = data2.get(key)
+    for key in sorted(set(file1_content.keys()) | set(file2_content.keys())):
+        value1 = file1_content.get(key)
+        value2 = file2_content.get(key)
 
         if isinstance(value1, dict) and isinstance(value2, dict):
             diff[key] = {
-                "status": "unchanged",
+                "status": "nested",
                 "value": build_diff(value1, value2)
             }
         elif value1 == value2:
@@ -15,12 +15,12 @@ def build_diff(data1, data2):
                 "status": "unchanged",
                 "value": value1
             }
-        elif key not in data2:
+        elif key not in file2_content:
             diff[key] = {
                 "status": "deleted",
                 "value": value1
             }
-        elif key not in data1:
+        elif key not in file1_content:
             diff[key] = {
                 "status": "added",
                 "value": value2

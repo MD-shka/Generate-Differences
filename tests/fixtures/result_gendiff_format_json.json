@@ -1,6 +1,6 @@
 {
     "common": {
-        "status": "unchanged",
+        "status": "nested",
         "value": {
             "follow": {
                 "status": "added",
@@ -30,10 +30,10 @@
                 }
             },
             "setting6": {
-                "status": "unchanged",
+                "status": "nested",
                 "value": {
                     "doge": {
-                        "status": "unchanged",
+                        "status": "nested",
                         "value": {
                             "wow": {
                                 "status": "changed",
@@ -55,7 +55,7 @@
         }
     },
     "group1": {
-        "status": "unchanged",
+        "status": "nested",
         "value": {
             "baz": {
                 "status": "changed",

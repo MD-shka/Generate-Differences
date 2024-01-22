@@ -2,7 +2,7 @@ def format_plain_value(value):
     if isinstance(value, bool):
         return str(value).lower()
     elif value is None:
-        return 'null'
+        return "null"
     elif isinstance(value, dict):
         return "[complex value]"
     elif isinstance(value, str):
@@ -10,7 +10,7 @@ def format_plain_value(value):
     return value
 
 
-def get_str_diff(diff):
+def join_lines(diff):
     return "\n".join(diff)
 
 
@@ -30,7 +30,7 @@ def get_change(path_str,
                 f"{format_plain_value(new_value)}")
 
 
-def plain(diff, path_key=None):
+def format_plain(diff, path_key=None):
     result = []
     if path_key is None:
         path_key = []
@@ -48,5 +48,5 @@ def plain(diff, path_key=None):
         if change:
             result.append(change)
         elif isinstance(changes.get('value'), dict):
-            result.append(plain(changes['value'], current_path))
-    return get_str_diff(result)
+            result.append(format_plain(changes['value'], current_path))
+    return join_lines(result)
