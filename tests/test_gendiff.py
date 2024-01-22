@@ -49,7 +49,7 @@ from gendiff.scripts import main
 def test_generate_diff(path_first_file, path_second_file, diff_files, format_name):
     with open(diff_files, 'r') as file:
         result = file.read()
-    diff = generate_diff.generate_diff(path_first_file, path_second_file, format_name)
+    diff = generate_diff(path_first_file, path_second_file, format_name)
     assert diff == result
 
 
