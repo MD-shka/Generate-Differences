@@ -1,4 +1,4 @@
-SPECIAL_SYMBOLS = {
+SHIFTS = {
     "nested": "  ",
     "unchanged": "  ",
     "added": "+ ",
@@ -10,8 +10,10 @@ def get_indent(depth):
     return ' ' * (depth * 4 - 2)
 
 
-def format_value(value):
-    if isinstance(value, bool):
+def format_value(value, depth):
+    if isinstance(value, dict):
+        return format_stylish(value, depth + 1)
+    elif isinstance(value, bool):
         return str(value).lower()
     elif value is None:
         return 'null'
@@ -20,14 +22,12 @@ def format_value(value):
 
 def get_recursive_or_value(
         value,
-        shift,
-        key=SPECIAL_SYMBOLS["nested"],
-        depth=1
+        key,
+        depth=1,
+        shift='  '
 ):
     pattern = f"{get_indent(depth)}{shift}{key}: "
-    return (pattern + f"""{format_stylish(value, depth + 1)
-            if isinstance(value, dict)
-            else format_value(value)}""")
+    return pattern + f"{format_value(value, depth)}"
 
 
 def stylish_join_lines(diff, depth):
@@ -39,40 +39,25 @@ def format_stylish(diff, depth=1):
     result = []
     for key, changes in diff.items():
         if isinstance(changes, dict) and 'status' in changes:
-            if changes['status'] in SPECIAL_SYMBOLS:
-                result.append(
-                    get_recursive_or_value(
-                        changes['value'],
-                        SPECIAL_SYMBOLS[changes['status']],
-                        key,
-                        depth
-                    )
-                )
-            if 'old_value' in changes:
-                result.append(
-                    get_recursive_or_value(
-                        changes['old_value'],
-                        SPECIAL_SYMBOLS['deleted'],
-                        key,
-                        depth
-                    )
-                )
-            if 'new_value' in changes:
-                result.append(
-                    get_recursive_or_value(
-                        changes['new_value'],
-                        SPECIAL_SYMBOLS['added'],
-                        key,
-                        depth
-                    )
-                )
+            status = changes['status']
+
+            if status in SHIFTS:
+                pattern = f"{get_indent(depth)}{SHIFTS[status]}{key}: "
+                value = f"{format_value(changes['value'], depth)}"
+                result.append(pattern + value)
+
+            elif status == "changed":
+                pattern = f"{get_indent(depth)}{SHIFTS['deleted']}{key}: "
+                value = f"{format_value(changes['old_value'], depth)}"
+                result.append(pattern + value)
+
+                pattern = f"{get_indent(depth)}{SHIFTS['added']}{key}: "
+                value = f"{format_value(changes['new_value'], depth)}"
+                result.append(pattern + value)
+
         else:
-            result.append(
-                get_recursive_or_value(
-                    changes,
-                    SPECIAL_SYMBOLS['unchanged'],
-                    key,
-                    depth
-                )
-            )
+            pattern = f"{get_indent(depth)}  {key}: "
+            value = f"{format_value(changes, depth)}"
+            result.append(pattern + value)
+
     return stylish_join_lines(result, depth)
