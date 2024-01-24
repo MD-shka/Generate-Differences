@@ -16,15 +16,15 @@ def join_lines(diff):
 
 def get_change(path_str,
                status,
-               value=None,
-               old_value=None,
-               new_value=None
+               value
                ):
     if status == 'added':
         return f"{path_str} was added with value: {format_plain_value(value)}"
     elif status == 'deleted':
         return f"{path_str} was removed"
     elif status == 'changed':
+        old_value = value[0]["value"]
+        new_value = value[1]["value"]
         return (f"{path_str} was updated. From "
                 f"{format_plain_value(old_value)} to "
                 f"{format_plain_value(new_value)}")
@@ -42,8 +42,6 @@ def format_plain(diff, path_key=None):
             path_str,
             changes['status'],
             changes.get('value'),
-            changes.get('old_value'),
-            changes.get('new_value')
         )
         if change:
             result.append(change)

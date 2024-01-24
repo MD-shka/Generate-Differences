@@ -20,19 +20,16 @@ def format_value(value, depth):
     return value
 
 
-def get_recursive_or_value(
-        value,
-        key,
-        depth=1,
-        shift='  '
-):
-    pattern = f"{get_indent(depth)}{shift}{key}: "
-    return pattern + f"{format_value(value, depth)}"
-
-
 def stylish_join_lines(diff, depth):
     str_diff = "\n".join(diff)
     return "{\n" + str_diff + "\n" + get_indent(depth)[:-2] + "}"
+
+
+def format_line(key, changes_value, depth, shift=SHIFTS["unchanged"]):
+    pattern = f"{get_indent(depth)}{shift}{key}: "
+    value = f"{format_value(changes_value, depth)}"
+    line = pattern + value
+    return line
 
 
 def format_stylish(diff, depth=1):
@@ -42,22 +39,27 @@ def format_stylish(diff, depth=1):
             status = changes['status']
 
             if status in SHIFTS:
-                pattern = f"{get_indent(depth)}{SHIFTS[status]}{key}: "
-                value = f"{format_value(changes['value'], depth)}"
-                result.append(pattern + value)
+                result.append(
+                    format_line(
+                        key,
+                        changes["value"],
+                        depth,
+                        SHIFTS[status]
+                    )
+                )
 
             elif status == "changed":
-                pattern = f"{get_indent(depth)}{SHIFTS['deleted']}{key}: "
-                value = f"{format_value(changes['old_value'], depth)}"
-                result.append(pattern + value)
-
-                pattern = f"{get_indent(depth)}{SHIFTS['added']}{key}: "
-                value = f"{format_value(changes['new_value'], depth)}"
-                result.append(pattern + value)
+                for change in changes["value"]:
+                    result.append(
+                        format_line(
+                            key,
+                            change["value"],
+                            depth,
+                            SHIFTS[change["status"]]
+                        )
+                    )
 
         else:
-            pattern = f"{get_indent(depth)}  {key}: "
-            value = f"{format_value(changes, depth)}"
-            result.append(pattern + value)
+            result.append(format_line(key, changes, depth))
 
     return stylish_join_lines(result, depth)

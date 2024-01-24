@@ -16,8 +16,16 @@
             },
             "setting3": {
                 "status": "changed",
-                "old_value": true,
-                "new_value": null
+                "value": [
+                    {
+                        "status": "deleted",
+                        "value": true
+                    },
+                    {
+                        "status": "added",
+                        "value": null
+                    }
+                ]
             },
             "setting4": {
                 "status": "added",
@@ -37,8 +45,16 @@
                         "value": {
                             "wow": {
                                 "status": "changed",
-                                "old_value": "",
-                                "new_value": "so much"
+                                "value": [
+                                    {
+                                        "status": "deleted",
+                                        "value": ""
+                                    },
+                                    {
+                                        "status": "added",
+                                        "value": "so much"
+                                    }
+                                ]
                             }
                         }
                     },
@@ -59,8 +75,16 @@
         "value": {
             "baz": {
                 "status": "changed",
-                "old_value": "bas",
-                "new_value": "bars"
+                "value": [
+                    {
+                        "status": "deleted",
+                        "value": "bas"
+                    },
+                    {
+                        "status": "added",
+                        "value": "bars"
+                    }
+                ]
             },
             "foo": {
                 "status": "unchanged",
@@ -68,10 +92,18 @@
             },
             "nest": {
                 "status": "changed",
-                "old_value": {
-                    "key": "value"
-                },
-                "new_value": "str"
+                "value": [
+                    {
+                        "status": "deleted",
+                        "value": {
+                            "key": "value"
+                        }
+                    },
+                    {
+                        "status": "added",
+                        "value": "str"
+                    }
+                ]
             }
         }
     },
