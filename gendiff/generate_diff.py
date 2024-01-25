@@ -1,5 +1,5 @@
 from gendiff.output_formats import stylish, plain, json
-from gendiff import parser, build
+from gendiff import parser, build_diff
 
 FORMATS = {
     "stylish": stylish.format_stylish,
@@ -11,6 +11,6 @@ FORMATS = {
 def generate_diff(path_first_file, path_second_file, format_name='stylish'):
     first_file = parser.parse_file(path_first_file)
     second_file = parser.parse_file(path_second_file)
-    diff = build.build_diff(first_file, second_file)
+    diff = build_diff.build_diff(first_file, second_file)
     result = FORMATS[format_name](diff)
     return result

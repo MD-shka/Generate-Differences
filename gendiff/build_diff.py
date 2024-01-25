@@ -26,12 +26,9 @@ def build_diff(file1_content, file2_content):
                 "value": value2
             }
         else:
-            diff[key] = {
-                "status": "changed",
-                "value": [
-                    {"status": "deleted", "value": value1},
-                    {"status": "added", "value": value2}
-                ]
-            }
+            diff[key] = [
+                {"status": "deleted", "value": value1},
+                {"status": "added", "value": value2}
+            ]
 
     return diff

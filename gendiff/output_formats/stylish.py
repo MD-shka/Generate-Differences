@@ -20,7 +20,7 @@ def format_value(value, depth):
     return value
 
 
-def stylish_join_lines(diff, depth):
+def get_stylish_join_lines(diff, depth):
     str_diff = "\n".join(diff)
     return "{\n" + str_diff + "\n" + get_indent(depth)[:-2] + "}"
 
@@ -62,4 +62,4 @@ def format_stylish(diff, depth=1):
         else:
             result.append(format_line(key, changes, depth))
 
-    return stylish_join_lines(result, depth)
+    return get_stylish_join_lines(result, depth)
